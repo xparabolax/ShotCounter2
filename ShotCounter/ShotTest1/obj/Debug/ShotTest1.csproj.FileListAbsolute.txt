@@ -1,0 +1,14 @@
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\bin\Debug\ShotTest1.exe.config
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\bin\Debug\ShotTest1.exe
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\bin\Debug\ShotTest1.pdb
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\bin\Debug\HockeyEditor.dll
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\bin\Debug\HockeyEditor.pdb
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\obj\Debug\ShotTest1.csprojResolveAssemblyReference.cache
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\obj\Debug\ShotTest1.Form1.resources
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\obj\Debug\ShotTest1.Properties.Resources.resources
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\obj\Debug\ShotTest1.csproj.GenerateResource.Cache
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\obj\Debug\ShotTest1.exe
+d:\documents\visual studio 2013\Projects\ShotTest1\ShotTest1\obj\Debug\ShotTest1.pdb
+D:\Documents\Visual Studio 2013\Projects\ShotCounter-master\ShotCounter\ShotTest1\bin\Debug\ShotTest1.exe.config
+D:\Documents\Visual Studio 2013\Projects\ShotCounter-master\ShotCounter\ShotTest1\obj\Debug\ShotTest1.exe
+D:\Documents\Visual Studio 2013\Projects\ShotCounter-master\ShotCounter\ShotTest1\obj\Debug\ShotTest1.pdb
