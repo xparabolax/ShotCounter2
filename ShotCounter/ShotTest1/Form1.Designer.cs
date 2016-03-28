@@ -35,6 +35,10 @@
             this.Shots = new System.Windows.Forms.Label();
             this.Shot2 = new System.Windows.Forms.Label();
             this.Time = new System.Windows.Forms.Label();
+            this.TeamLT = new System.Windows.Forms.Label();
+            this.PersonLT = new System.Windows.Forms.Label();
+            this.RedS = new System.Windows.Forms.Label();
+            this.BlueS = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // PuckPos
@@ -88,9 +92,49 @@
             this.Time.TabIndex = 5;
             this.Time.Text = "label1";
             // 
+            // TeamLT
+            // 
+            this.TeamLT.AutoSize = true;
+            this.TeamLT.Location = new System.Drawing.Point(15, 168);
+            this.TeamLT.Name = "TeamLT";
+            this.TeamLT.Size = new System.Drawing.Size(35, 13);
+            this.TeamLT.TabIndex = 6;
+            this.TeamLT.Text = "label1";
+            // 
+            // PersonLT
+            // 
+            this.PersonLT.AutoSize = true;
+            this.PersonLT.Location = new System.Drawing.Point(15, 185);
+            this.PersonLT.Name = "PersonLT";
+            this.PersonLT.Size = new System.Drawing.Size(35, 13);
+            this.PersonLT.TabIndex = 7;
+            this.PersonLT.Text = "label1";
+            // 
+            // RedS
+            // 
+            this.RedS.AutoSize = true;
+            this.RedS.Location = new System.Drawing.Point(15, 202);
+            this.RedS.Name = "RedS";
+            this.RedS.Size = new System.Drawing.Size(35, 13);
+            this.RedS.TabIndex = 8;
+            this.RedS.Text = "label1";
+            // 
+            // BlueS
+            // 
+            this.BlueS.AutoSize = true;
+            this.BlueS.Location = new System.Drawing.Point(15, 219);
+            this.BlueS.Name = "BlueS";
+            this.BlueS.Size = new System.Drawing.Size(35, 13);
+            this.BlueS.TabIndex = 9;
+            this.BlueS.Text = "label2";
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(291, 257);
+            this.Controls.Add(this.BlueS);
+            this.Controls.Add(this.RedS);
+            this.Controls.Add(this.PersonLT);
+            this.Controls.Add(this.TeamLT);
             this.Controls.Add(this.Time);
             this.Controls.Add(this.Shot2);
             this.Controls.Add(this.Shots);
@@ -110,6 +154,10 @@
         private System.Windows.Forms.Label Shots;
         private System.Windows.Forms.Label Shot2;
         private System.Windows.Forms.Label Time;
+        private System.Windows.Forms.Label TeamLT;
+        private System.Windows.Forms.Label PersonLT;
+        private System.Windows.Forms.Label RedS;
+        private System.Windows.Forms.Label BlueS;
 
     }
 }
