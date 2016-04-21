@@ -72,7 +72,7 @@ namespace ShotTest1
                         if (PlayerTouch.Name == p.Name)//BlueGoalie check to see if he touched puck
                         {
                             BSave++;
-                            BGoalieList.Add("Player: " + p.Name + " / Save number: " + BSave + " / at: " + GameTime);
+                            BGoalieList.Add("Blue Player: " + p.Name + " / Save number: " + BSave + " / at: " + GameTime + " of period " + GameInfo.Period);
                             GShot = false;
                             
                         }
@@ -85,7 +85,7 @@ namespace ShotTest1
                         if (PlayerTouch.Name == p.Name)//RedGoalie check to see if he touched puck
                         {
                             RSave++;
-                            RGoalieList.Add("Player: " + p.Name + " / Save number: " + RSave + " / at: " + GameTime);
+                            RGoalieList.Add("Red Player: " + p.Name + " / Save number: " + RSave + " / at: " + GameTime + " of period " + GameInfo.Period);
                             GShot = false;
                             
                         }
@@ -148,22 +148,22 @@ namespace ShotTest1
             int red = 0;
             if (Velz < 0)
             {
-                Time = (4 - Puck.Position.Z) / Velz;
+                Time = (4.15f - Puck.Position.Z) / Velz;
                 red = 1; // blue
             }
 
             if (Velz > 0)
             {
-                Time = (57 - Puck.Position.Z) / Velz;
+                Time = (56.85f - Puck.Position.Z) / Velz;
                 red = 2; // red
             }
 
 
             x = Puck.Position.X + Velx * Time;
             y = Puck.Position.Y + Vely * Time;
-            if (x > 13.65 && x < 16.35 && red == 1) // blue
+            if (x > 13.75 && x < 16.25 && red == 1) // blue
             {
-                if (y < .82)
+                if (y < .83)
                 {
                     ShotOnNet = "true";
                     if (Puck.Position.Z < 10 && Puck.Position.Z > 3.8 && Puck.Position.X < 19 && Puck.Position.X > 11)
@@ -173,16 +173,16 @@ namespace ShotTest1
                             if (TeamTouch == HQMTeam.Red)
                             {
                                 ShotCounterB++;
-                                Bshot.Add("Shot At Blue Net " + ShotCounterB + " by " + PlayerTouch.Name + " at " + GameTime + " of period " + GameInfo.Period);
+                                Bshot.Add("Red Shot " + ShotCounterB + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                                 shot = true;
                             }
                         }
                     }
                 }
             }
-            else if (x > 13.65 && x < 16.35 && red == 2) // red
+            else if (x > 13.75 && x < 16.25 && red == 2) // red
             {
-                if (y < .82)
+                if (y < .83)
                 {
                     ShotOnNet = "true";
                     if (Puck.Position.Z > 51 && Puck.Position.Z < 57.2 && Puck.Position.X < 19 && Puck.Position.X > 11)
@@ -192,7 +192,7 @@ namespace ShotTest1
                             if (TeamTouch == HQMTeam.Blue)
                             {
                                 ShotCounterR++;
-                                Rshot.Add("Shot At Red Net " + ShotCounterR + " by " + PlayerTouch.Name + " at " + GameTime + " of period " + GameInfo.Period);
+                                Rshot.Add("Blue Shot " + ShotCounterR + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                                 shot = true;
                             }
                         }
@@ -216,7 +216,7 @@ namespace ShotTest1
             Shot2.Text = "Red Shots: " + ShotCounterB;
             TeamTouchedPuck();
             GoalieTouchPuck();
-            GameTime = (GameInfo.GameTime / 6000) + ":" + ((GameInfo.GameTime / 100) % 60);
+            GameTime = (GameInfo.GameTime / 6000) + ":" + ((GameInfo.GameTime / 100) % 60).ToString("00");
             Time.Text = "Time: " + GameTime;
             RedS.Text = "Red Saves: " + RSave;
             BlueS.Text = "Blue Saves: " + BSave;
@@ -226,11 +226,11 @@ namespace ShotTest1
             {
                 if(Puck.Position.Z < 4)//scored on blue net
                 {
-                    SecondA.Add("Goal: " + RQueue.ElementAt(2) + " Primary Assist: " + RQueue.ElementAt(1) + "  Secondary Assist: " + RQueue.ElementAt(0));
+                    SecondA.Add("Red Goal: " + RQueue.ElementAt(2) + " / Primary Assist: " + RQueue.ElementAt(1) + " / Secondary Assist: " + RQueue.ElementAt(0));
                 }
                 if(Puck.Position.Z > 57)//scored on red net
                 {
-                    SecondA.Add("Goal: " + RQueue.ElementAt(2) + "  Primary Assist: " + BQueue.ElementAt(1) + "  Secondary Assist: " + BQueue.ElementAt(0));
+                    SecondA.Add("Blue Goal: " + BQueue.ElementAt(2) + " / Primary Assist: " + BQueue.ElementAt(1) + " / Secondary Assist: " + BQueue.ElementAt(0));
                 }
                 GShot = false;
                 InitializeQueue();
