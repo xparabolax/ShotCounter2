@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -72,9 +73,11 @@ namespace ShotTest1
                         if (PlayerTouch.Name == p.Name)//BlueGoalie check to see if he touched puck
                         {
                             BSave++;
+                            ShotCounterB++;
                             BGoalieList.Add("Blue Player: " + p.Name + " / Save number: " + BSave + " / at: " + GameTime + " of period " + GameInfo.Period);
                             GShot = false;
-                            
+                            System.IO.File.WriteAllText(@"red.txt", string.Empty);
+                            System.IO.File.WriteAllText(@"red.txt", ShotCounterB.ToString());
                         }
                     }
                 }
@@ -85,9 +88,11 @@ namespace ShotTest1
                         if (PlayerTouch.Name == p.Name)//RedGoalie check to see if he touched puck
                         {
                             RSave++;
+                            ShotCounterR++;
                             RGoalieList.Add("Red Player: " + p.Name + " / Save number: " + RSave + " / at: " + GameTime + " of period " + GameInfo.Period);
                             GShot = false;
-                            
+                            System.IO.File.WriteAllText(@"blue.txt", string.Empty);
+                            System.IO.File.WriteAllText(@"blue.txt", ShotCounterR.ToString());
                         }
                     }
                 }
@@ -172,9 +177,8 @@ namespace ShotTest1
                         {
                             if (TeamTouch == HQMTeam.Red)
                             {
-                                ShotCounterB++;
-                                Bshot.Add("Red Shot " + ShotCounterB + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                                 shot = true;
+                                Bshot.Add("Red Shot " + ShotCounterB + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                             }
                         }
                     }
@@ -191,9 +195,8 @@ namespace ShotTest1
                         {
                             if (TeamTouch == HQMTeam.Blue)
                             {
-                                ShotCounterR++;
-                                Rshot.Add("Blue Shot " + ShotCounterR + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                                 shot = true;
+                                Rshot.Add("Blue Shot " + ShotCounterR + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                             }
                         }
                     }
@@ -227,10 +230,22 @@ namespace ShotTest1
                 if(Puck.Position.Z < 4)//scored on blue net
                 {
                     SecondA.Add("Red Goal: " + RQueue.ElementAt(2) + " / Primary Assist: " + RQueue.ElementAt(1) + " / Secondary Assist: " + RQueue.ElementAt(0));
+                    if (TeamTouch == HQMTeam.Red)
+                    {
+                        ShotCounterB++;
+                        System.IO.File.WriteAllText(@"red.txt", string.Empty);
+                        System.IO.File.WriteAllText(@"red.txt", ShotCounterB.ToString());
+                    }
                 }
                 if(Puck.Position.Z > 57)//scored on red net
                 {
                     SecondA.Add("Blue Goal: " + BQueue.ElementAt(2) + " / Primary Assist: " + BQueue.ElementAt(1) + " / Secondary Assist: " + BQueue.ElementAt(0));
+                    if (TeamTouch == HQMTeam.Blue)
+                    {
+                        ShotCounterR++;
+                        System.IO.File.WriteAllText(@"blue.txt", string.Empty);
+                        System.IO.File.WriteAllText(@"blue.txt", ShotCounterR.ToString());
+                    }
                 }
                 GShot = false;
                 InitializeQueue();
@@ -242,6 +257,8 @@ namespace ShotTest1
             }
             if (GameInfo.Period == 0)
             {
+                System.IO.File.WriteAllText(@"red.txt", "0");
+                System.IO.File.WriteAllText(@"blue.txt", "0");
                 ShotCounterB = 0;
                 ShotCounterR = 0;
                 Bshot.Clear();
