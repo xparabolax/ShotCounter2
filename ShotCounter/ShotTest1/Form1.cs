@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using HockeyEditor;
+using WMPLib;
+using System.Speech.Synthesis;
 
 namespace ShotTest1
 {
@@ -20,6 +16,8 @@ namespace ShotTest1
             InitializeComponent();
             InitializeQueue();
             timer1.Start();
+            wplayer.URL = @"C:\Users\Andrew\Downloads\NHL 94- Brass Bonanza.mp3";
+            synth.SetOutputToDefaultAudioDevice();
         }
         static HQMTeam TeamTouch;
         static Player PlayerTouch;
@@ -31,8 +29,9 @@ namespace ShotTest1
         static int QueueSize = 3;
         static Boolean GShot = false;
         static int RSave = 0, BSave = 0;
+        WindowsMediaPlayer wplayer = new WindowsMediaPlayer();
+        SpeechSynthesizer synth = new SpeechSynthesizer();
 
-        
         static void InitializeQueue()
         {
                 QueueAdd(RQueue, "");
@@ -78,6 +77,7 @@ namespace ShotTest1
                             GShot = false;
                             System.IO.File.WriteAllText(@"red.txt", string.Empty);
                             System.IO.File.WriteAllText(@"red.txt", ShotCounterB.ToString());
+                            synth.SpeakAsync("Blue save.");
                         }
                     }
                 }
@@ -93,6 +93,7 @@ namespace ShotTest1
                             GShot = false;
                             System.IO.File.WriteAllText(@"blue.txt", string.Empty);
                             System.IO.File.WriteAllText(@"blue.txt", ShotCounterR.ToString());
+                            synth.SpeakAsync("Red save.");
                         }
                     }
                 }
@@ -125,10 +126,6 @@ namespace ShotTest1
                 }
             }
         }
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
         static int ShotCounterR = 0, ShotCounterB = 0;
         static Boolean shot = false;
         static Boolean wrote = false;
@@ -138,9 +135,10 @@ namespace ShotTest1
         static List<string> Rshot = new List<string>();
         static string GameTime;
         
-
         static string Puckonnet()
         {
+            SpeechSynthesizer synth = new SpeechSynthesizer();
+            synth.SetOutputToDefaultAudioDevice();
             float Velx = Puck.Position.X - Posx;
             float Vely = Puck.Position.Y - Posy;
             float Velz = Puck.Position.Z - Posz;
@@ -178,6 +176,7 @@ namespace ShotTest1
                             if (TeamTouch == HQMTeam.Red)
                             {
                                 shot = true;
+                                synth.SpeakAsync("Red shot.");
                                 Bshot.Add("Red Shot " + ShotCounterB + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                             }
                         }
@@ -196,6 +195,7 @@ namespace ShotTest1
                             if (TeamTouch == HQMTeam.Blue)
                             {
                                 shot = true;
+                                synth.SpeakAsync("Blue shot.");
                                 Rshot.Add("Blue Shot " + ShotCounterR + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                             }
                         }
@@ -226,9 +226,11 @@ namespace ShotTest1
             
             
             if (GameInfo.StopTime > 0 && assist == false)
+                    
             {
                 if(Puck.Position.Z < 4)//scored on blue net
                 {
+                    wplayer.controls.play();
                     SecondA.Add("Red Goal: " + RQueue.ElementAt(2) + " / Primary Assist: " + RQueue.ElementAt(1) + " / Secondary Assist: " + RQueue.ElementAt(0));
                     if (TeamTouch == HQMTeam.Red)
                     {
@@ -239,6 +241,7 @@ namespace ShotTest1
                 }
                 if(Puck.Position.Z > 57)//scored on red net
                 {
+                    wplayer.controls.play();
                     SecondA.Add("Blue Goal: " + BQueue.ElementAt(2) + " / Primary Assist: " + BQueue.ElementAt(1) + " / Secondary Assist: " + BQueue.ElementAt(0));
                     if (TeamTouch == HQMTeam.Blue)
                     {
