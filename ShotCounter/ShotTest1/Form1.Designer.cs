@@ -49,7 +49,6 @@
             this.PuckPos.Size = new System.Drawing.Size(35, 13);
             this.PuckPos.TabIndex = 0;
             this.PuckPos.Text = "label1";
-            this.PuckPos.Click += new System.EventHandler(this.label1_Click);
             // 
             // timer1
             // 
