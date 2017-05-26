@@ -1,3 +1,5 @@
 ShotCounter/ShotTest1/bin/
 ShotCounter/ShotTest1/obj/
 .vscode/
+/.vs
+/ShotCounter/.vs/ShotTest1/v15
