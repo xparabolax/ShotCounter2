@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using HockeyEditor;
-using WMPLib;
-using System.Speech.Synthesis;
 
 namespace ShotTest1
 {
@@ -16,8 +14,6 @@ namespace ShotTest1
             InitializeComponent();
             InitializeQueue();
             timer1.Start();
-            wplayer.URL = @"C:\Users\Andrew\Downloads\NHL 94- Brass Bonanza.mp3";
-            synth.SetOutputToDefaultAudioDevice();
         }
         static HQMTeam TeamTouch;
         static Player PlayerTouch;
@@ -29,8 +25,6 @@ namespace ShotTest1
         static int QueueSize = 3;
         static Boolean GShot = false;
         static int RSave = 0, BSave = 0;
-        WindowsMediaPlayer wplayer = new WindowsMediaPlayer();
-        SpeechSynthesizer synth = new SpeechSynthesizer();
 
         static void InitializeQueue()
         {
@@ -40,8 +34,8 @@ namespace ShotTest1
                 QueueAdd(BQueue, "");
                 QueueAdd(BQueue, "");
                 QueueAdd(BQueue, "");
-            
         }
+
         static Queue<string> QueueAdd(Queue<string> score, string item)
         {
             if (score.Count == QueueSize)
@@ -55,9 +49,10 @@ namespace ShotTest1
             }
             return score;
         }
+
         void GoalieTouchPuck()
         {
-            if(shot == true && GameInfo.StopTime == 0)
+            if (shot == true && GameInfo.StopTime == 0)
             {
                 GShot = true;
             }
@@ -66,10 +61,9 @@ namespace ShotTest1
             {
                 if (p.Team == HQMTeam.Blue && Puck.Position.Z < 21.5)
                 {
-
-                    if (shot == false && GShot == true && GameInfo.StopTime == 0)//goalie has made a save
+                    if (shot == false && GShot == true && GameInfo.StopTime == 0) //goalie has made a save
                     {
-                        if (PlayerTouch.Name == p.Name)//BlueGoalie check to see if he touched puck
+                        if (PlayerTouch.Name == p.Name) //BlueGoalie check to see if he touched puck
                         {
                             BSave++;
                             ShotCounterB++;
@@ -77,15 +71,14 @@ namespace ShotTest1
                             GShot = false;
                             System.IO.File.WriteAllText(@"red.txt", string.Empty);
                             System.IO.File.WriteAllText(@"red.txt", ShotCounterB.ToString());
-                            synth.SpeakAsync("Blue save.");
                         }
                     }
                 }
                 if (p.Team == HQMTeam.Red && Puck.Position.Z > 39)
                 {
-                    if (shot == false && GShot == true && GameInfo.StopTime == 0)//goalie has made a save
+                    if (shot == false && GShot == true && GameInfo.StopTime == 0) //goalie has made a save
                     {
-                        if (PlayerTouch.Name == p.Name)//RedGoalie check to see if he touched puck
+                        if (PlayerTouch.Name == p.Name) //RedGoalie check to see if he touched puck
                         {
                             RSave++;
                             ShotCounterR++;
@@ -93,12 +86,12 @@ namespace ShotTest1
                             GShot = false;
                             System.IO.File.WriteAllText(@"blue.txt", string.Empty);
                             System.IO.File.WriteAllText(@"blue.txt", ShotCounterR.ToString());
-                            synth.SpeakAsync("Red save.");
                         }
                     }
                 }
             }
         }
+
         void TeamTouchedPuck()
         {
             foreach (Player p in PlayerManager.Players)
@@ -126,6 +119,7 @@ namespace ShotTest1
                 }
             }
         }
+
         static int ShotCounterR = 0, ShotCounterB = 0;
         static Boolean shot = false;
         static Boolean wrote = false;
@@ -137,8 +131,6 @@ namespace ShotTest1
         
         static string Puckonnet()
         {
-            SpeechSynthesizer synth = new SpeechSynthesizer();
-            synth.SetOutputToDefaultAudioDevice();
             float Velx = Puck.Position.X - Posx;
             float Vely = Puck.Position.Y - Posy;
             float Velz = Puck.Position.Z - Posz;
@@ -176,7 +168,6 @@ namespace ShotTest1
                             if (TeamTouch == HQMTeam.Red)
                             {
                                 shot = true;
-                                synth.SpeakAsync("Red shot.");
                                 Bshot.Add("Red Shot " + ShotCounterB + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                             }
                         }
@@ -195,7 +186,6 @@ namespace ShotTest1
                             if (TeamTouch == HQMTeam.Blue)
                             {
                                 shot = true;
-                                synth.SpeakAsync("Blue shot.");
                                 Rshot.Add("Blue Shot " + ShotCounterR + " / by " + PlayerTouch.Name + " / at " + GameTime + " of period " + GameInfo.Period);
                             }
                         }
@@ -228,9 +218,8 @@ namespace ShotTest1
             if (GameInfo.StopTime > 0 && assist == false)
                     
             {
-                if(Puck.Position.Z < 4)//scored on blue net
+                if (Puck.Position.Z < 4) //scored on blue net
                 {
-                    wplayer.controls.play();
                     SecondA.Add("Red Goal: " + RQueue.ElementAt(2) + " / Primary Assist: " + RQueue.ElementAt(1) + " / Secondary Assist: " + RQueue.ElementAt(0));
                     if (TeamTouch == HQMTeam.Red)
                     {
@@ -239,9 +228,8 @@ namespace ShotTest1
                         System.IO.File.WriteAllText(@"red.txt", ShotCounterB.ToString());
                     }
                 }
-                if(Puck.Position.Z > 57)//scored on red net
+                if (Puck.Position.Z > 57) //scored on red net
                 {
-                    wplayer.controls.play();
                     SecondA.Add("Blue Goal: " + BQueue.ElementAt(2) + " / Primary Assist: " + BQueue.ElementAt(1) + " / Secondary Assist: " + BQueue.ElementAt(0));
                     if (TeamTouch == HQMTeam.Blue)
                     {
@@ -254,10 +242,12 @@ namespace ShotTest1
                 InitializeQueue();
                 assist = true;
             }
+
             if (GameInfo.StopTime == 0)
             {
                 assist = false;
             }
+
             if (GameInfo.Period == 0)
             {
                 System.IO.File.WriteAllText(@"red.txt", "0");
@@ -274,13 +264,15 @@ namespace ShotTest1
                 BSave = 0;
                 wrote = false;
             }
+
             TeamLT.Text = "Red Last Touch: " + RQueue.ElementAt(2) + " / " + RQueue.ElementAt(1) + " / " + RQueue.ElementAt(0);
             PersonLT.Text = "Blue Last Touch: " + BQueue.ElementAt(2) + " / " + BQueue.ElementAt(1) + " / " + BQueue.ElementAt(0);
+
             if (GameInfo.GameOver == 1 && wrote == false)
             {
                 Writer write = new Writer();
                 write.WriteLine("Red Shots: " + ShotCounterB + " Blue Shots: " + ShotCounterR + Environment.NewLine, false);
-                foreach(var item in Rshot)
+                foreach (var item in Rshot)
                 {
                     write.WriteLine(item.ToString(), false);
                 }
@@ -307,9 +299,5 @@ namespace ShotTest1
                 wrote = true;
             }
         }
-
-
-
-
     }
 }
